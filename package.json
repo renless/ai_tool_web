@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "db:build-sql": "node scripts/build-sql.mjs",
+    "db:test-sql": "node scripts/test-sql.mjs",
+    "db:seed": "node scripts/seed-supabase.mjs",
+    "db:seed-dry": "node scripts/seed-supabase.mjs --dry",
+    "db:verify": "node scripts/seed-supabase.mjs --verify"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",

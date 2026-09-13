@@ -34,6 +34,52 @@ button { cursor: pointer; }
 .tool-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }.tool-card { min-width: 0; height: 74px; border: 1px solid #edf0f4; background: #fff; border-radius: 10px; padding: 13px; display: flex; align-items: center; gap: 10px; text-align: left; box-shadow: 0 3px 12px #343c5410; transition: transform .2s, box-shadow .2s; }.tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px #49517d1c; border-color: #dcd5ff; }.tool-logo { flex: 0 0 38px; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font-weight: 800; font-size: 14px; color: #4b5261; }.tool-copy { min-width: 0; display: flex; flex-direction: column; gap: 5px; }.tool-copy strong { color: #303846; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.tool-copy small { color: #929aa8; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.card-arrow { width: 14px; color: #bcc2cc; margin-left: auto; flex: 0 0 auto; opacity: 0; }.tool-card:hover .card-arrow { opacity: 1; }.category-section { scroll-margin-top: 20px; padding-top: 13px; border-top: 1px solid #eceef2; margin-top: 31px; }.category-title { margin-top: 0; }.category-title > div > svg { color: #6c57df; width: 20px; }.category-title h2 { font-size: 20px; }
 footer { max-width: 1320px; margin: 70px auto 0; border-top: 1px solid #e7e9ed; padding: 28px 0 38px; display: flex; align-items: center; gap: 10px; color: #a2a9b5; font-size: 12px; }.brand-mark { color: #7059df; font-weight: 900; font-size: 18px; }.footer-right { margin-left: auto; }.mobile-header { display: none; }
 @media (max-width: 1100px) { .content-area { padding: 0 28px; }.tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Skeleton shimmer shared by app/loading.tsx and app/tools/[slug]/loading.tsx */
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skeleton-row, .skeleton-pill, .skeleton-button, .skeleton-bar, .skeleton-card, .skeleton-block, .skeleton-tall {
+  background: linear-gradient(90deg, #eef0f5 0%, #f7f8fa 50%, #eef0f5 100%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+.skeleton-row { height: 14px; }
+.skeleton-pill { height: 30px; border-radius: 999px; }
+.skeleton-button { height: 43px; border-radius: 10px; }
+.skeleton-bar { height: 24px; border-radius: 6px; }
+.skeleton-card { height: 92px; border-radius: 14px; }
+.skeleton-block { width: 100%; height: 18px; }
+.skeleton-tall { height: 240px; border-radius: 18px; }
+.skeleton-page {
+  min-height: 100vh;
+  display: flex;
+  background: var(--background, #f7f8fa);
+}
+.skeleton-sidebar {
+  width: 242px;
+  flex: 0 0 242px;
+  background: #fff;
+  border-right: 1px solid var(--line, #e8ebf0);
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.skeleton-content {
+  margin-left: 242px;
+  width: calc(100% - 242px);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+@media (max-width: 720px) {
+  .skeleton-sidebar { width: 100%; position: static; }
+  .skeleton-content { margin-left: 0; width: 100%; padding: 20px 16px; }
+}
+
 @media (max-width: 720px) { .mobile-header { display: flex; position: fixed; inset: 0 0 auto; height: 60px; z-index: 30; background: #fff; align-items: center; gap: 10px; padding: 0 18px; border-bottom: 1px solid var(--line); }.mobile-header button { border: 0; background: transparent; color: #626c7d; }.mobile-header strong { color: #161b48; }.mobile-header .brand-mark { margin-left: 5px; }.sidebar { transform: translateX(-100%); transition: transform .25s; top: 60px; width: 260px; }.sidebar.sidebar-open { transform: translateX(0); }.content-area { margin-left: 0; width: 100%; padding: 0 16px; }.topbar { height: 75px; justify-content: flex-end; }.top-links { display: none; }.login-button { right: 0; }.hero { padding: 48px 0 30px; }.hero h1 { font-size: 45px; }.search-wrap { height: 50px; }.quick-tags { gap: 11px; }.tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }.tool-card { padding: 10px; height: 69px; }.tool-logo { width: 32px; height: 32px; flex-basis: 32px; font-size: 11px; }.tool-copy strong { font-size: 12px; }.tool-copy small { font-size: 10px; }.section-heading h2, .category-title h2 { font-size: 16px; }.category-title button { display: none; } footer { margin-top: 45px; padding-bottom: 28px; }.footer-right { display: none; } }
 
 .auth-page, .account-page, .detail-page { min-height: 100vh; background: #f7f8fc; color: #18202f; padding: 28px 7vw; }

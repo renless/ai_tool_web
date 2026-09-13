@@ -1,4 +1,5 @@
-import { boolean, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { relations } from 'drizzle-orm'
+import { boolean, integer, pgTable, text, timestamp, bigserial, bigint, index } from 'drizzle-orm/pg-core'
 
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -25,3 +26,58 @@ export const verification = pgTable('verification', {
 export const toolSubmissions = pgTable('tool_submissions', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity(), userId: text('userId').notNull(), name: text('name').notNull(), slug: text('slug').notNull().unique(), url: text('url').notNull(), logoUrl: text('logo_url'), previewUrl: text('preview_url'), summary: text('summary').notNull(), content: text('content').notNull(), category: text('category').notNull().default('AI 其他工具'), status: text('status').notNull().default('pending'), createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 })
+
+// ============================================================================
+// AI 工具集导航 —— 由 supabase/migrations/20250913_ai_tools_nav.sql 建表
+// ============================================================================
+
+export const aiCategories = pgTable(
+  'ai_categories',
+  {
+    id: bigserial('id', { mode: 'number' }).primaryKey(),
+    slug: text('slug').notNull().unique(),
+    name: text('name').notNull(),
+    icon: text('icon'),
+    sortOrder: integer('sort_order').notNull().default(0),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({
+    slugIdx: index('idx_ai_categories_slug').on(t.slug),
+  }),
+)
+
+export const aiTools = pgTable(
+  'ai_tools',
+  {
+    id: bigserial('id', { mode: 'number' }).primaryKey(),
+    slug: text('slug').notNull().unique(),
+    name: text('name').notNull(),
+    description: text('description'),
+    categoryId: bigint('category_id', { mode: 'number' })
+      .notNull()
+      .references(() => aiCategories.id, { onDelete: 'restrict' }),
+    color: text('color'),
+    letter: text('letter'),
+    url: text('url'),
+    logoUrl: text('logo_url'),
+    previewUrl: text('preview_url'),
+    isFeatured: boolean('is_featured').notNull().default(false),
+    isLatest: boolean('is_latest').notNull().default(false),
+    sortOrder: integer('sort_order').notNull().default(0),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({
+    slugIdx: index('idx_ai_tools_slug').on(t.slug),
+    categoryIdx: index('idx_ai_tools_category').on(t.categoryId),
+    featuredIdx: index('idx_ai_tools_featured').on(t.isFeatured),
+    latestIdx: index('idx_ai_tools_latest').on(t.isLatest),
+  }),
+)
+
+export const aiToolsRelations = relations(aiTools, ({ one }) => ({
+  category: one(aiCategories, {
+    fields: [aiTools.categoryId],
+    references: [aiCategories.id],
+  }),
+}))

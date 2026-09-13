@@ -1,0 +1,20 @@
+$ next dev
+▲ Next.js 16.3.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.16.0.2:3000
+- Environments: .env
+✓ Ready in 1038ms
+✓ Running next.config.mjs took 47ms
+
+ GET / 200 in 2.1s (next.js: 111ms, proxy.ts: 268ms, application-code: 1738ms)
+ GET / 200 in 139ms (next.js: 5ms, proxy.ts: 5ms, application-code: 128ms)
+ GET / 200 in 115ms (next.js: 3ms, proxy.ts: 4ms, application-code: 108ms)
+ GET / 200 in 127ms (next.js: 3ms, proxy.ts: 8ms, application-code: 117ms)
+ GET / 200 in 116ms (next.js: 6ms, proxy.ts: 5ms, application-code: 106ms)
+ GET / 200 in 108ms (next.js: 3ms, proxy.ts: 6ms, application-code: 99ms)
+ GET / 200 in 275ms (next.js: 6ms, proxy.ts: 4ms, application-code: 265ms)
+ GET / 200 in 116ms (next.js: 3ms, proxy.ts: 4ms, application-code: 109ms)
+ GET / 200 in 116ms (next.js: 3ms, proxy.ts: 4ms, application-code: 109ms)
+ GET / 200 in 115ms (next.js: 3ms, proxy.ts: 4ms, application-code: 109ms)
+[?25h
+[ELIFECYCLE] Command failed with exit code 4294967295.
